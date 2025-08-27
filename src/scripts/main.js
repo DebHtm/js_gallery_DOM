@@ -1,20 +1,14 @@
 'use strict';
 
-const thumbs = document.querySelectorAll('.list-item a');
+const thumbs = document.querySelector('.gallery__list');
 const bigImg = document.querySelector('.gallery img');
 
-thumbs.forEach((a) => {
-  a.addEventListener('click', (e) => {
-    e.preventDefault();
+thumbs.addEventListener('click', (e) => {
+  const link = e.target.closest('a.list-item__link');
 
-    let target = e.target;
-
-    if (target.tagName === 'IMG') {
-      target = target.parentElement;
-    }
-
-    if (target.tagName === 'A') {
-      bigImg.src = target.href;
-    }
-  });
+  if (!link || !thumbs.contains(link)) {
+    return;
+  }
+  e.preventDefault();
+  bigImg.src = link.href;
 });
